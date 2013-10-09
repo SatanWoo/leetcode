@@ -2,6 +2,10 @@
 // Github:satanwoo.github.io
 // Weibo:@吴中生有正版
 
+// 这题如果做到递归遍历的胡同里，就完蛋了，要注意找规律。
+// 当然这规律不是很容易找，不是推送数学公式，而是要结合图形
+// 发现对称的美，这里的对称不仅仅是形状对称，更是一种个数上的对称。
+
 class Solution {
 public:
     int numTrees(int n)
