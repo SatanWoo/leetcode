@@ -1,0 +1,47 @@
+// Author:SatanWoo(Ziqi Wu)
+// Github:satanwoo.github.io
+// Weibo:@吴中生有正版
+
+// 这题就注意细节就行了，凑活吧。类似二分的思路，么么哒
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+ class Solution {
+public:
+    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
+        if (preorder.size() == 0 || inorder.size() == 0) return NULL;
+        
+        int preSize = preorder.size();
+        int inSize = inorder.size();
+        
+        return recursiveBuildTree(preorder, inorder, 0, preSize - 1, 0, inSize - 1, preSize, inSize);
+    }
+    
+    TreeNode *recursiveBuildTree(vector<int> & preorder, vector<int> &inorder, int preStart ,int preEnd ,int inStart, int inEnd, int preSize, int inSize)
+    {
+        if (preStart > preEnd || inStart > inEnd || preEnd >= preSize || inEnd >= inSize) return NULL;
+        
+        TreeNode *root = new TreeNode(preorder[preStart]);
+        int preValueInOrdeIndex = -1;
+        for (int i = inStart;i <= inEnd;i ++) {
+            if (inorder[i] == preorder[preStart]) {
+                preValueInOrdeIndex = i;
+                break;
+            }
+        }
+        
+        int relativeIndex = preValueInOrdeIndex - inStart;
+        
+        root->left = recursiveBuildTree(preorder, inorder, preStart+1, preStart+relativeIndex, inStart, preValueInOrdeIndex-1, preSize, inSize);
+        
+        root->right = recursiveBuildTree(preorder, inorder, preStart+relativeIndex+1, preEnd, preValueInOrdeIndex+1, inEnd, preSize, inSize);
+        return root;
+    }
+};
