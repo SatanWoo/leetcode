@@ -1,0 +1,27 @@
+// Author:SatanWoo(Ziqi Wu)
+// Github:satanwoo.github.io
+// Weibo:@吴中生有正版
+
+// 没有难度的一题，不说了。
+
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode *root) {
+        if (root == NULL) return 0;
+        
+        int maxLeft = maxDepth(root->left);
+        int maxRight = maxDepth(root->right);
+        int maxValue = max(maxLeft, maxRight);
+        
+        return maxValue + 1;
+    }
+};
